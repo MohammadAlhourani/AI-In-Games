@@ -1,0 +1,16 @@
+﻿  Game.cpp
+  Player.cpp
+C:\Users\Mohammad Alhourani\Desktop\Ai Labs\AI Lab\AI Lab\Player.cpp(40,58): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Mohammad Alhourani\Desktop\Ai Labs\AI Lab\AI Lab\Player.cpp(40,35): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+  main.cpp
+C:\Users\Mohammad Alhourani\Desktop\Ai Labs\AI Lab\AI Lab\main.cpp(32,22): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Generating Code...
+  AI Lab.vcxproj -> C:\Users\Mohammad Alhourani\Desktop\Ai Labs\AI Lab\Debug\AI Lab.exe
