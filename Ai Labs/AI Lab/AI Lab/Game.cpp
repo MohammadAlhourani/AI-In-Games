@@ -10,18 +10,39 @@
 /// <summary>
 /// default constructor
 /// setup the window properties
-/// load and setup the text 
-/// load and setup thne image
 /// </summary>
 Game::Game() :
-	m_window{ sf::VideoMode{ WINDOW_WIDTH, WINDOW_HEIGHT, 32U }, "SFML Game" },
+	m_window{ sf::VideoMode{ WINDOW_WIDTH, WINDOW_HEIGHT, 32U }, "Ai Lab 1" },
 	m_exitGame{false} //when true game will exit
 {
+	//setting up the enemies and inserting them into the vector array
+
+		Enemy* temp = new Enemy(0);
+
+		m_enemies.push_back(*temp);
+
+		temp = new Enemy(0);
+
+		temp->setSlow();
+
+		m_enemies.push_back(*temp);
+
+		temp = new Enemy(2);
+
+		m_enemies.push_back(*temp);
+
+		temp = new Enemy(3);
+
+		m_enemies.push_back(*temp);
+
+		temp = new Enemy(4);
+
+		m_enemies.push_back(*temp);
 }
 
 /// <summary>
 /// default destructor we didn't dynamically allocate anything
-/// so we don't need to free it, but mthod needs to be here
+/// so we don't need to free it, but method needs to be here
 /// </summary>
 Game::~Game()
 {
@@ -57,7 +78,6 @@ void Game::run()
 /// <summary>
 /// handle user and system events/ input
 /// get key presses/ mouse moves etc. from OS
-/// and user :: Don't do game update here
 /// </summary>
 void Game::processEvents()
 {
@@ -99,9 +119,17 @@ void Game::update(sf::Time t_deltaTime)
 		m_window.close();
 	}
 
-
+	// updating the player
 	m_player.update(t_deltaTime);
-	m_enemy.update(t_deltaTime);
+
+
+	//updating the enemies passing in the players position and velocity
+	for (int i = 0; i < m_enemies.size(); i++)
+	{
+		m_enemies[i].getPlayerPos(m_player.getPos());
+		m_enemies[i].getPlayerVelocity(m_player.getVelocity());
+		m_enemies[i].update(t_deltaTime);
+	}
 }
 
 /// <summary>
@@ -111,8 +139,14 @@ void Game::render()
 {
 	m_window.clear(sf::Color::Black);
 
+	//drawing the player
 	m_player.draw(m_window);
-	m_enemy.draw(m_window);
+
+	//drawing the enemies
+	for (int i = 0; i < m_enemies.size(); i++)
+	{
+		m_enemies[i].draw(m_window);
+	}
 
 	m_window.display();
 }

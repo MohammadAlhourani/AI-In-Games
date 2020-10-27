@@ -1,0 +1,4 @@
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\AI Lab\Debug\ASSETS\FONTS\ariblk.ttf
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\AI Lab\Debug\ASSETS\IMAGES\SFML-LOGO.png
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-lab1-movement-systems\AI Lab\Debug\ASSETS\FONTS\ariblk.ttf
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-lab1-movement-systems\AI Lab\Debug\ASSETS\IMAGES\SFML-LOGO.png

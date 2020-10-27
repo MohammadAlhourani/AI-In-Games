@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Globals.h"
+#include "Behaviours.h"
 
 class Player
 {
@@ -16,37 +17,41 @@ public:
 
 	void setUpPlayer();
 
-	void boundary();
-
 	void movement();
 
-	void rotate(float t_degrees);
+	sf::Vector2f getPos();
 
-	float getNewOrientation(float t_currentOrientation, sf::Vector2f t_velocity);
+	sf::Vector2f getVelocity();
 
-	sf::Vector2f unitVec(sf::Vector2f t_vect);
-
-	float Length(sf::Vector2f t_vect);
 
 private:
 
+	//the player sprite
 	sf::Sprite m_playerSprite;
 
+	//the player texture
 	sf::Texture m_playerText;
 
+	//the behaviours class used for equations
+	Behaviours m_behaviours;
+
+	//the players position
 	sf::Vector2f m_position;
 
+	//the players velocity
 	sf::Vector2f m_velocity;
 
-	sf::Vector2f m_direction;
 
+	//the players orientation/rotation
 	float m_orientation;
 
+	//the max speed the player can reach
 	float m_maxSpeed = 15;
 
 	float m_speed; // the current speed of the player
 
-	float rotationDeg = 1;
+	//how quickly the player can rotate 
+	float rotationDeg = 3;
 
 
 };

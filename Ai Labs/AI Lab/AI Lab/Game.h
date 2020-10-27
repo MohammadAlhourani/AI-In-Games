@@ -1,8 +1,6 @@
 #ifndef GAME_HPP
 #define GAME_HPP
-/// <summary>
-/// Don't forget the endif at the bottom
-/// </summary>
+
 #include <SFML/Graphics.hpp>
 
 #include "Globals.h"
@@ -14,6 +12,7 @@ class Game
 public:
 	Game();
 	~Game();
+
 	/// <summary>
 	/// main method for game
 	/// </summary>
@@ -30,8 +29,11 @@ private:
 
 	bool m_exitGame; // control exiting game
 
+	//the player
 	Player m_player;
-	Enemy m_enemy;
+
+	//vector array for the enemies
+	std::vector<Enemy> m_enemies;
 
 };
 

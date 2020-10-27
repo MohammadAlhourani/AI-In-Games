@@ -2,13 +2,27 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <random>
 
 #include "Globals.h"
+#include "Behaviours.h"
+
+//the enemy behaviours
+enum class mode
+{
+	Arrive,
+	Flee,
+	Seek,
+	Wander,
+	Pursue
+
+};
 
 class Enemy
 {
 public:
 	Enemy();
+	Enemy(int t_mode);
 	~Enemy();
 
 	void update(sf::Time t_deltaTime);
@@ -17,20 +31,26 @@ public:
 
 	void setUpEnemy();
 
-	void boundary();
+	void detectPlayer();
 
-	void movement();
+	void movement(sf::Time t_deltaTime);
 
-	float getNewOrientation(float t_currentOrientation, sf::Vector2f t_velocity);
+	void getPlayerPos(sf::Vector2f t_playerPos);
 
-	sf::Vector2f unitVec(sf::Vector2f t_vect);
+	void getPlayerVelocity(sf::Vector2f t_playerVelocity);
 
-	float Length(sf::Vector2f t_vect);
+	void setActive();
+
+	void setSlow();
 
 private:
 
 	sf::Sprite m_enemySprite;
 	sf::Texture m_enemyText;
+
+	sf::CircleShape m_visionCone;
+
+	Behaviours m_behaviours;
 
 	sf::Vector2f m_direction;
 
@@ -38,11 +58,27 @@ private:
 
 	sf::Vector2f m_velocity;
 
+	sf::Vector2f m_acceleration;
+
 	float m_orientation;
 
 	float m_maxSpeed;
 
 	float m_speed;
+
+	sf::Vector2f m_playerPos;
+	sf::Vector2f m_playerVelocity;
+
+	float m_steerTimer;
+
+	mode m_mode;
+
+	float m_visRadius;
+
+	bool m_active;
+
+	sf::Text m_label;
+	sf::Font m_font;
 
 };
 

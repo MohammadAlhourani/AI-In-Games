@@ -1,0 +1,79 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(491,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Boids.vcxproj, Swarm.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  Boid.cpp
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.h(44,42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.h(44,30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.h(55,43): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.h(55,31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.h(59,43): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.h(59,31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.cpp(46,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.cpp(112,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.cpp(151,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.cpp(162,17): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.cpp(190,27): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.cpp(230,35): warning C4244: '=': conversion from 'const int' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.cpp(263,20): warning C4018: '<': signed/unsigned mismatch
+  Flock.cpp
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.h(44,42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.h(44,30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.h(55,43): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.h(55,31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.h(59,43): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.h(59,31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Flock.cpp(29,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Flock.cpp(38,20): warning C4018: '<': signed/unsigned mismatch
+  Game.cpp
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.h(44,42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.h(44,30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.h(55,43): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.h(55,31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.h(59,43): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.h(59,31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Game.cpp(40,54): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Game.cpp(40,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Game.cpp(45,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Game.cpp(45,21): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Game.cpp(148,48): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Game.cpp(148,33): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Game.cpp(152,47): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Game.cpp(152,32): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Game.cpp(177,20): warning C4018: '<': signed/unsigned mismatch
+  main.cpp
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.h(44,42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.h(44,30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.h(55,43): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.h(55,31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.h(59,43): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.h(59,31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\main.cpp(37,22): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Pvector.cpp
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Pvector.cpp(88,19): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Pvector.cpp(88,9): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Pvector.cpp(135,12): warning C4305: 'return': truncation from 'double' to 'float'
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Pvector.cpp(140,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  Compiling...
+  Generating Code...
+  Boids.vcxproj -> C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Debug\Flock.exe
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Pvector.h(24): warning C26495: Variable 'Pvector::y' is uninitialized. Always initialize a member variable (type.6).
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.h(40): warning C26495: Variable 'Boid::maxSpeed' is uninitialized. Always initialize a member variable (type.6).
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.h(41): warning C26495: Variable 'Boid::predator' is uninitialized. Always initialize a member variable (type.6).
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Boid.cpp(241): warning C26451: Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2).
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Game.cpp(219): warning C26812: The enum type 'sf::PrimitiveType' is unscoped. Prefer 'enum class' over 'enum' (Enum.3).
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Pvector.cpp(129): warning C26451: Arithmetic overflow: Using operator '+' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '+' to avoid overflow (io.2).
+C:\Users\Mohammad Alhourani\Documents\GitHub\AI-In-Games\Ai Labs\FlockTest\Boids\Pvector.cpp(129): warning C26451: Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2).
