@@ -34,8 +34,12 @@ public:
 	Pvector velocity;
 	Pvector acceleration;
 	float maxSpeed;
+	float speed; 
 	float maxForce;
+	float orientation;
 	int neighbourDistance = 50;
+
+	bool m_leader = false;
 
 	Boid() {}
 	Boid(float x, float y)
@@ -45,6 +49,8 @@ public:
 		location = Pvector(x, y);
 		maxSpeed = 3.5;
 		maxForce = 0.5;
+		speed = 0;
+		orientation = 0;
 	}
 	Boid(float x, float y, bool predCheck) 
 	{
@@ -60,6 +66,8 @@ public:
 		}
 		acceleration = Pvector(0, 0);
 		location = Pvector(x, y);
+		orientation = 0;
+		speed = 0;
 	}
 /* 
 Destructors are commented out for now. g++ throws errors if they are included.

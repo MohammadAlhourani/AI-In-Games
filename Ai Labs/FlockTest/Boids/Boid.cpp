@@ -186,12 +186,15 @@ Pvector Boid::seek(Pvector v)
 //are given by the three laws.
 void Boid::update()
 {
+
 	//To make the slow down not as abrupt
 	acceleration.mulScalar(.4);
 	// Update velocity
 	velocity.addVector(acceleration);
+
 	// Limit speed
 	velocity.limit(maxSpeed);
+
 	location.addVector(velocity);
 	// Reset accelertion to 0 each cycle
 	acceleration.mulScalar(0);
@@ -262,19 +265,22 @@ void Boid::swarm(vector <Boid*> v)
 
 	for (int i = 0; i < v.size(); i++)
 	{
-		R = location.subTwoVector(location, v[i]->location);
-
-		distance = R.magnitude();
-
-		if (distance != 0)
+		if (i != 0)
 		{
-			//force of attraction + force of repulsion
-			U = -4.0f / pow(distance, 0.49f) + 10.5f / pow(distance, 0.75f);
+			R = location.subTwoVector(location, v[i]->location);
 
-			R.normalize();
+			distance = R.magnitude();
 
-			sum.addVector(Pvector(R.x * U, R.y * U));
-					
+			if (distance != 0)
+			{
+				//force of attraction + force of repulsion
+				U = -4.0f / pow(distance, 0.49f) + 10.5f / pow(distance, 0.75f);
+
+				R.normalize();
+
+				sum.addVector(Pvector(R.x * U, R.y * U));
+
+			}
 		}
 	}
 
@@ -282,3 +288,5 @@ void Boid::swarm(vector <Boid*> v)
 	update();
 	borders();
 }
+
+

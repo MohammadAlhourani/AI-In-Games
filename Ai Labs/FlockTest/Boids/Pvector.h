@@ -20,6 +20,12 @@ public:
 	float x;
 	float y;
 
+	//convert radians to degrees
+	float m_radToDeg = (180.0f / 3.14f);
+
+	//converts degrees to radians
+	float m_degToRad = (3.14f / 180.0f);
+
 	//Constructors
 	Pvector() {}
 
@@ -61,6 +67,11 @@ public:
 	void setMagnitude(float x);
 	float angleBetween(Pvector v);
 	void normalize();
+
+
+	Pvector rotate(int t_degrees, Pvector t_vect);
+
+	float getNewOrientation(const float currentOrientation, Pvector velocity);
 
 	Pvector copy(Pvector v);	
 };

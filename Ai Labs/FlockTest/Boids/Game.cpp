@@ -34,7 +34,7 @@ Game::Game()
 		std::cout << "successfully loaded ariblk.ttf font file" << std::endl;
 
 
-	for (int i = 0; i < 185; i++) //Number of boids is hardcoded for testing pusposes.
+	for (int i = 0; i < 50; i++) //Number of boids is hardcoded for testing pusposes.
 	{
 		//Boid b(rand() % window_width, rand() % window_height); //Starts the boid with a random position in the window.
 		Boid* b = new Boid(window_width / 3, window_height / 3); //Starts all boids in the center of the screen
@@ -48,6 +48,7 @@ Game::Game()
 		shape.setOutlineColor(sf::Color::White);
 		shape.setOutlineThickness(1);
 		shape.setRadius(boidsSize);
+		shape.setOrigin(boidsSize / 2, boidsSize / 2);
 
 		//Adding the boid to the flock and adding the shapes to the vector<sf::CircleShape>
 		flock.addBoid(b);
@@ -127,11 +128,22 @@ void Game::processKeys(sf::Event t_event)
 	{
 		m_exitGame = true;
 	}
+	else if (sf::Keyboard::C == t_event.key.code)
+		action = "cformation";
 	else if (sf::Keyboard::Space == t_event.key.code)
 		if (action == "flock")
 			action = "swarm";
 		else
 			action = "flock";
+
+	if (sf::Keyboard::A == t_event.key.code || sf::Keyboard::Left == t_event.key.code)
+	{
+		flock.flock[leader]->orientation = flock.getBoid(leader).orientation + 3 * -0.1;
+	}
+	else if (sf::Keyboard::D == t_event.key.code || sf::Keyboard::Right == t_event.key.code)
+	{
+		flock.flock[leader]->orientation = flock.getBoid(leader).orientation + 3 * 0.1;
+	}
 
 }
 
@@ -192,11 +204,22 @@ void Game::update(sf::Time t_deltaTime)
 
 	}
 
-	//Applies the three rules to each boid in the flock and changes them accordingly.
 	if (action == "flock")
+	{
 		flock.flocking();
+		shapes[leader].setFillColor(sf::Color::Green);
+	}
+	else if (action == "cformation")
+	{
+		//		int leader = 0;
+		flock.cFormation(leader);
+		shapes[leader].setFillColor(sf::Color::Red);
+	}
 	else
+	{
 		flock.swarming();
+		shapes[leader].setFillColor(sf::Color::Green);
+	}
 
 	if (m_exitGame)
 	{

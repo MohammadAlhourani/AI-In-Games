@@ -44,6 +44,7 @@ private:
 	float enemySize = 10;
 	string action = "flock";
 	bool close = false;
+	int leader = 0;
 
 	//Create flock, vector of shapes, and initialize boids
 	Flock flock;

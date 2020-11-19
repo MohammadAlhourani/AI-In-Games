@@ -156,6 +156,31 @@ void Pvector::normalize()
 	}
 }
 
+Pvector Pvector::rotate(int t_degrees, Pvector t_vect)
+{
+	float radians = t_degrees * m_degToRad;
+
+	const float cos = std::cos(radians);
+	const float sin = std::sin(radians);
+
+	t_vect.x = ((t_vect.x * cos) - (t_vect.y * sin));
+	t_vect.y = ((t_vect.x * sin) + (t_vect.y * cos));
+
+	return t_vect;
+}
+
+float Pvector::getNewOrientation(const float currentOrientation, Pvector velocity)
+{
+	if (velocity.magnitude() > 0)
+	{
+		return ((atan2(-velocity.x, velocity.y)));
+	}
+	else
+	{
+		return currentOrientation;
+	}
+}
+
 //Creates and returns a copy of the Pvector used as a parameter
 Pvector Pvector::copy(Pvector v)
 {
