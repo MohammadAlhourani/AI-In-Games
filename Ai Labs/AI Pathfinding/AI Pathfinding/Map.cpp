@@ -1,6 +1,6 @@
 #include "Map.h"
 
-Map::Map() : m_mapGraph(2500)
+Map::Map() : m_mapGraph(2500), m_vertexes(sf::LinesStrip, 2)
 {
 	if (!m_costFont.loadFromFile("Assets\\Font\\ariblk.ttf"))
 	{
@@ -9,6 +9,8 @@ Map::Map() : m_mapGraph(2500)
 
 	neighbourAlgorithm();
 	loadSquare();
+
+	
 
 }
 
@@ -23,19 +25,54 @@ void Map::draw(sf::RenderWindow& t_window)
 		t_window.draw(square);
 	}
 
-	int currentNode = 0;
-	for (int row = 0; row < ROWS; row++)
-	{
-		for (int col = 0; col < COLS; col++)
-		{
-
-			t_window.draw(m_mapGraph.nodeIndex(currentNode)->m_data.m_costText);
 	
-			currentNode++;
 
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+	{
+		int currentNode = 0;
+
+		for (int row = 0; row < ROWS; row++)
+		{
+			for (int col = 0; col < COLS; col++)
+			{
+
+				t_window.draw(m_mapGraph.nodeIndex(currentNode)->m_data.m_costText);
+
+				currentNode++;
+
+			}
 		}
 	}
 
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
+	{
+		int currentNode = 0;
+
+		for (int row = 0; row < ROWS; row++)
+		{
+			for (int col = 0; col < COLS; col++)
+			{
+				if (m_mapGraph.nodeIndex(currentNode)->m_data.goal == false && m_mapGraph.nodeIndex(currentNode)->target() != nullptr)
+				{
+					sf::Vector2f vector1 = sf::Vector2f(m_mapGraph.nodeIndex(currentNode)->m_data.m_positionX, m_mapGraph.nodeIndex(currentNode)->m_data.m_positionY);
+
+					sf::Vector2f vector2 = sf::Vector2f(m_mapGraph.nodeIndex(currentNode)->target()->m_data.m_positionX, m_mapGraph.nodeIndex(currentNode)->target()->m_data.m_positionY);
+
+					m_vertexes[0].position = vector1;
+
+					m_vertexes[1].position = vector2;
+
+
+					t_window.draw(m_vertexes);
+				}
+				currentNode++;
+
+			}
+		}
+	}
+	
+	
+	
 	
 }
 
@@ -56,8 +93,8 @@ void Map::neighbourAlgorithm()
 
 			nodeData.m_pathCost = 0;
 
-			nodeData.m_positionX = col * NODE_WIDTH;
-			nodeData.m_positionY = row * NODE_HEIGHT;
+			nodeData.m_positionX = (col * NODE_WIDTH) + (NodeSize / 2);
+			nodeData.m_positionY = (row * NODE_HEIGHT) + (NodeSize / 2);
 
 			nodeData.row = row;
 			nodeData.col = col;
@@ -68,7 +105,7 @@ void Map::neighbourAlgorithm()
 			nodeData.m_costText.setCharacterSize(10);
 			nodeData.m_costText.setString(std::to_string(nodeData.m_pathCost));
 			nodeData.m_costText.setFillColor(sf::Color::White);
-			nodeData.m_costText.setPosition(sf::Vector2f(nodeData.m_positionX, nodeData.m_positionY));
+			nodeData.m_costText.setPosition(sf::Vector2f(nodeData.m_positionX - (NodeSize / 2), nodeData.m_positionY - (NodeSize / 2)));
 
 			m_mapGraph.addNode(nodeData, CurrentnodeIndex++);
 
@@ -137,7 +174,7 @@ void Map::loadSquare()
 				theSquare.setOutlineColor(sf::Color(255, 255, 255, 255));
 				theSquare.setPosition(col * NODE_WIDTH, row * NODE_HEIGHT);
 			}
-			else if (m_mapGraph.nodeIndex(nodeIndex)->m_data.start == true)
+			else if (m_mapGraph.nodeIndex(nodeIndex)->m_data.start == true && m_mapGraph.nodeIndex(nodeIndex)->m_data.passable == true)
 			{
 				theSquare = sf::RectangleShape(sf::Vector2f(NODE_WIDTH, NODE_HEIGHT));
 				theSquare.setFillColor(sf::Color(0, 255, 0, 150));
@@ -145,10 +182,10 @@ void Map::loadSquare()
 				theSquare.setOutlineColor(sf::Color(0, 0, 0, 255));
 				theSquare.setPosition(col * NODE_WIDTH, row * NODE_HEIGHT);
 			}
-			else if (m_mapGraph.nodeIndex(nodeIndex)->m_data.goal == true)
+			else if (m_mapGraph.nodeIndex(nodeIndex)->m_data.goal == true && m_mapGraph.nodeIndex(nodeIndex)->m_data.passable == true)
 			{
 				theSquare = sf::RectangleShape(sf::Vector2f(NODE_WIDTH, NODE_HEIGHT));
-				theSquare.setFillColor(sf::Color(255, 0, 0, 150));
+				theSquare.setFillColor(sf::Color(255, 255, 0, 150));
 				theSquare.setOutlineThickness(1);
 				theSquare.setOutlineColor(sf::Color(0, 0, 0, 255));
 				theSquare.setPosition(col * NODE_WIDTH, row * NODE_HEIGHT);
@@ -156,7 +193,9 @@ void Map::loadSquare()
 			else
 			{
 				theSquare = sf::RectangleShape(sf::Vector2f(NODE_WIDTH, NODE_HEIGHT));
-				theSquare.setFillColor(sf::Color(255, 0, 0, 150));
+				theSquare.setFillColor(sf::Color(255, 255, 255, 150));
+				theSquare.setOutlineThickness(1);
+				theSquare.setOutlineColor(sf::Color(0, 0, 0, 255));
 				theSquare.setPosition(col * NODE_WIDTH, row * NODE_HEIGHT);
 			}
 
@@ -224,12 +263,35 @@ void Map::setGoal(sf::Vector2f t_pos)
 
 	loadSquare();
 
-	pathFind(getStart(), getGoal(), m_pathToGoal);
+	setVectorField();
+
+	vectorFieldPathing();
+
+
+	currentNode = 0;
+	for (int row = 0; row < ROWS; row++)
+	{
+		for (int col = 0; col < COLS; col++)
+		{
+			if (m_mapGraph.nodeIndex(currentNode)->m_data.passable == true &&
+				m_mapGraph.nodeIndex(currentNode)->m_data.start == false && 
+				m_mapGraph.nodeIndex(currentNode)->m_data.goal == false)
+			{
+				squares[currentNode].setFillColor(sf::Color(0 + (255 - m_mapGraph.nodeIndex(currentNode)->m_data.m_pathCost * 5), 0, 0));
+			}
+			currentNode++;
+
+		}
+	}
 
 	for (auto node : m_pathToGoal)
 	{
-		squares[node.m_data.num].setFillColor(sf::Color(0, 255, 255, 255));
+		if (node.m_data.start == false && node.m_data.goal == false)
+		{
+			squares[node.m_data.num].setFillColor(sf::Color(0, 255, 255, 255));
+		}
 	}
+
 }
 
 int Map::getXY(sf::Vector2f t_pos)
@@ -278,6 +340,91 @@ int Map::getGoal()
 		}
 	}
 	return 0;
+}
+
+void Map::setImpassable(sf::Vector2f t_pos)
+{
+	if (m_mapGraph.nodeIndex(getXY(t_pos))->m_data.passable == true)
+	{
+		m_mapGraph.nodeIndex(getXY(t_pos))->m_data.passable = false;
+	}
+	else
+	{
+		m_mapGraph.nodeIndex(getXY(t_pos))->m_data.passable = true;
+	}
+
+	loadSquare();
+}
+
+void Map::setVectorField()
+{
+	int currentNode = 0;
+
+
+	m_mapGraph.calHeuristic(m_mapGraph.nodeIndex(getGoal()));
+	m_mapGraph.setTargetsNull();
+
+	for (int row = 0; row < ROWS; row++)
+	{
+		for (int col = 0; col < COLS; col++)
+		{
+			if (m_mapGraph.nodeIndex(currentNode)->m_data.passable == true)
+			{
+				auto iter = m_mapGraph.nodeIndex(currentNode)->arcList().begin();
+				auto endIter = m_mapGraph.nodeIndex(currentNode)->arcList().end();
+
+				for (; iter != endIter; iter++)
+				{
+					if (m_mapGraph.nodeIndex(currentNode)->target() == nullptr && m_mapGraph.nodeIndex(currentNode)->m_data.goal == false && (*iter).node()->m_data.passable == true)
+					{
+						m_mapGraph.nodeIndex(currentNode)->setTarget((*iter).node());
+					}
+					else if (m_mapGraph.nodeIndex(currentNode)->m_data.goal == true)
+					{
+						continue;
+					}
+					else if (m_mapGraph.nodeIndex(currentNode)->target() != nullptr && (*iter).node()->m_data.passable == true)
+					{
+						if ((*iter).node()->m_data.m_hueristic < m_mapGraph.nodeIndex(currentNode)->target()->m_data.m_hueristic)
+						{
+							m_mapGraph.nodeIndex(currentNode)->setTarget((*iter).node());
+						}
+					}
+				}
+			}
+			currentNode++;
+		}
+	}
+}
+
+void Map::vectorFieldPathing()
+{
+	auto iter = m_mapGraph.nodeIndex(getStart());
+
+	m_pathToGoal.clear();
+	m_vectorField.clear();
+	
+	for (; iter != m_mapGraph.nodeIndex(getGoal());)
+	{
+		if (iter->target() != nullptr)
+		{
+			auto temp = *(iter->target());
+
+			m_pathToGoal.push_back(temp);
+
+			sf::Vector2f vector = sf::Vector2f(iter->target()->m_data.m_positionX - iter->m_data.m_positionX, iter->target()->m_data.m_positionY - iter->m_data.m_positionY);
+
+			m_vectorField.push_back(vector);
+
+
+
+			iter = iter->target();
+		}
+		else
+		{
+			break;
+		}
+	}
 }
 
 

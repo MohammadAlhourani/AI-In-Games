@@ -21,7 +21,7 @@ public:
 	typedef GraphNode<NodeType, ArcType> Node;
 
 	// Constructor function
-	GraphNode( Node * previous = 0 ) : m_previous( previous ) {}
+	GraphNode( Node * previous = 0  , Node * target = 0) : m_previous( previous ) , m_target(target) {}
 
     // Accessor functions
     std::list<Arc> const & arcList() const 
@@ -34,9 +34,14 @@ public:
         return m_marked;
     }
 
-	Node * previous() const 
+	Node* previous() const 
 	{
 		return m_previous;
+	}
+
+	Node* target() const
+	{
+		return m_target;
 	}
 
     void setMarked(bool mark) 
@@ -44,9 +49,14 @@ public:
         m_marked = mark;
     }
            
-	void setPrevious(Node *previous) 
+	void setPrevious(Node* previous) 
 	{
 		m_previous = previous;
+	}
+
+	void setTarget(Node* target)
+	{
+		m_target = target;
 	}
 
     Arc* getArc( Node* node );    
@@ -74,6 +84,9 @@ private:
 	// Description: pointer to previous node
 	// -------------------------------------------------------
 	Node* m_previous;
+
+
+	Node* m_target;
 };
 
 // ----------------------------------------------------------------

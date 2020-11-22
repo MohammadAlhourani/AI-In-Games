@@ -52,6 +52,9 @@ public:
 
 	void nodeCosts(Node* goal);
 
+	void calHeuristic(Node* goal);
+
+	void setTargetsNull();
 
 private:
 	// ----------------------------------------------------------------
@@ -348,21 +351,17 @@ inline void Graph<NodeType, ArcType>::aStar(Node* start, Node* dest, std::vector
 	std::priority_queue<Node*, std::vector<Node*>, NodeSearchCostComparer<NodeType, ArcType>> pq;
 	path.clear();
 
+
+	calHeuristic(dest);
+
 	for (auto & nodes : m_nodes)
 	{
-		if (nodes != dest)
-		{
-			nodes->m_data.m_hueristic = sqrt(
-				(pow((nodes->m_data.m_positionX - dest->m_data.m_positionX) , 2.0f) +
-				(pow((nodes->m_data.m_positionY - dest->m_data.m_positionY), 2.0f))));
-		}
-
-		nodes->m_data.m_pathCost = INT_MAX;
+		//nodes->m_data.m_pathCost = INT_MAX;
 		nodes->setPrevious(nullptr);
 		nodes->setMarked(false);
 	}
 
-	start->m_data.m_pathCost = 0;
+	//start->m_data.m_pathCost = 0;
 
 	pq.push(start);
 
@@ -550,14 +549,34 @@ inline void Graph<NodeType, ArcType>::nodeCosts(Node* goal)
 		// dequeue the current node.
 		nodeQueue.pop();
 	}
-
-
 }
 
+template<class NodeType, class ArcType>
+inline void Graph<NodeType, ArcType>::calHeuristic(Node* goal)
+{
+	for (auto& nodes : m_nodes)
+	{
+		if (nodes != goal)
+		{
+			nodes->m_data.m_hueristic = sqrt(
+				(pow((nodes->m_data.m_positionX - goal->m_data.m_positionX), 2.0f) +
+					(pow((nodes->m_data.m_positionY - goal->m_data.m_positionY), 2.0f))));
+		}
+		else
+		{
+			nodes->m_data.m_hueristic = 0;
+		}
+	}
+}
 
-
-
-
+template<class NodeType, class ArcType>
+inline void Graph<NodeType, ArcType>::setTargetsNull()
+{
+	for (auto& nodes : m_nodes)
+	{
+		nodes->setTarget(nullptr);
+	}
+}
 
 
 #include "GraphNode.h"

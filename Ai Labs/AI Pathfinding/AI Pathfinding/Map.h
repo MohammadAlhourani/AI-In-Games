@@ -60,6 +60,11 @@ public:
 
 	int getGoal();
 
+	void setImpassable(sf::Vector2f t_pos);
+
+	void setVectorField();
+
+	void vectorFieldPathing();
 
 private:
 
@@ -79,4 +84,8 @@ private:
 	int NodeSize = 16; 
 
 	std::vector<GraphNode<NodeData, int>> m_pathToGoal;
+
+	std::vector<sf::Vector2f> m_vectorField;
+
+	sf::VertexArray m_vertexes;
 };

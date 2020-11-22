@@ -74,20 +74,26 @@ void Game::processEvents()
 		{
 			m_exitGame = true;
 		}
+
 		if (sf::Event::KeyPressed == newEvent.type) //user pressed a key
 		{
 			processKeys(newEvent);
 		}
 
-		if (newEvent.mouseButton.button == sf::Mouse::Left)
+		if (newEvent.type == sf::Event::MouseButtonPressed)
 		{
-			m_map.setStart(mousePos);
+			if (newEvent.mouseButton.button == sf::Mouse::Left)
+			{
+				m_map.setStart(mousePos);
+			}
+
+			if (newEvent.mouseButton.button == sf::Mouse::Right)
+			{
+				m_map.setGoal(mousePos);
+			}
 		}
 
-		if (newEvent.mouseButton.button == sf::Mouse::Right)
-		{
-			m_map.setGoal(mousePos);
-		}
+
 	}
 }
 
@@ -98,9 +104,17 @@ void Game::processEvents()
 /// <param name="t_event">key press event</param>
 void Game::processKeys(sf::Event t_event)
 {
+
+	sf::Vector2f mousePos = m_window.mapPixelToCoords(sf::Mouse::getPosition(m_window));
+
 	if (sf::Keyboard::Escape == t_event.key.code)
 	{
 		m_exitGame = true;
+	}
+
+	if (sf::Keyboard::Z == t_event.key.code)
+	{
+		m_map.setImpassable(mousePos);
 	}
 }
 
