@@ -507,16 +507,24 @@ void Graph<NodeType, ArcType>::adaptedBreadthFirst( Node* current, Node *goal )
 
 }
 
+//set all nodes pathcost 
+//skips any wall nodes
 template<class NodeType, class ArcType>
 inline void Graph<NodeType, ArcType>::nodeCosts(Node* goal)
 {
 	for (int index = 0; index < m_nodes.size(); index++)
 	{
-		if (nullptr != m_nodes.at(index))
+		if (m_nodes.at(index)->m_data.passable == true)
 		{
 			m_nodes.at(index)->setMarked(false);
-			m_nodes.at(index)->m_data.m_pathCost = 0;
+			m_nodes.at(index)->m_data.m_pathCost = -1;
 		}
+		else
+		{
+			m_nodes.at(index)->setMarked(true);
+			m_nodes.at(index)->m_data.m_pathCost = 999;
+		}
+		
 	}
 
 	std::queue<Node*> nodeQueue;
@@ -541,7 +549,6 @@ inline void Graph<NodeType, ArcType>::nodeCosts(Node* goal)
 				(*iter).node()->m_data.m_pathCost = nodeQueue.front()->m_data.m_pathCost + 1;
 				(*iter).node()->m_data.m_costText.setString(std::to_string((*iter).node()->m_data.m_pathCost));
 				(*iter).node()->setMarked(true);
-				(*iter).node()->setPrevious(temp); // set the previous node
 				nodeQueue.push((*iter).node());
 			}
 		}
@@ -551,6 +558,7 @@ inline void Graph<NodeType, ArcType>::nodeCosts(Node* goal)
 	}
 }
 
+//calculates the heuristic of each node
 template<class NodeType, class ArcType>
 inline void Graph<NodeType, ArcType>::calHeuristic(Node* goal)
 {
@@ -569,6 +577,7 @@ inline void Graph<NodeType, ArcType>::calHeuristic(Node* goal)
 	}
 }
 
+//sets the targets of each node to null
 template<class NodeType, class ArcType>
 inline void Graph<NodeType, ArcType>::setTargetsNull()
 {

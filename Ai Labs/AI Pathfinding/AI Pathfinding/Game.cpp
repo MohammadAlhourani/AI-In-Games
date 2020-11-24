@@ -16,7 +16,10 @@ Game::Game() :
 	m_exitGame{false} //when true game will exit
 {
 	
-	
+	std::cout << " left click to set start node \n"
+		" right click to set goal node and pathfind \n"
+		" hover mouse over node and press z to set passable/impassable \n" 
+		" 1 to see path costs \n 2 to see vector field" << std::endl;
 
 
 }
@@ -80,7 +83,7 @@ void Game::processEvents()
 			processKeys(newEvent);
 		}
 
-		if (newEvent.type == sf::Event::MouseButtonPressed)
+		if (newEvent.type == sf::Event::MouseButtonPressed) // mouse button
 		{
 			if (newEvent.mouseButton.button == sf::Mouse::Left)
 			{
@@ -124,7 +127,6 @@ void Game::processKeys(sf::Event t_event)
 /// <param name="t_deltaTime">time interval per frame</param>
 void Game::update(sf::Time t_deltaTime)
 {
-
 }
 
 /// <summary>

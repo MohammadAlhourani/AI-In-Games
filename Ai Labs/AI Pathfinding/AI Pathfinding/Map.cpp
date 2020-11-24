@@ -7,11 +7,16 @@ Map::Map() : m_mapGraph(2500), m_vertexes(sf::LinesStrip, 2)
 		std::cout << "error loading font" << std::endl;
 	}
 
+	//sets up the graph and gives each node its neighbours
 	neighbourAlgorithm();
+
+	//sets the first node to the start;
+	setStart(sf::Vector2f((NodeSize / 2), (NodeSize / 2)));
+
+	setGoal(sf::Vector2f((NodeSize * 2) , (NodeSize * 2)));
+
+	//gives a visual representation of the graph
 	loadSquare();
-
-	
-
 }
 
 Map::~Map()
@@ -20,13 +25,14 @@ Map::~Map()
 
 void Map::draw(sf::RenderWindow& t_window)
 {
+	//draw the sqaures
 	for(auto square : squares)
 	{
 		t_window.draw(square);
 	}
 
 	
-
+	//draw the path costs of each node
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
 	{
 		int currentNode = 0;
@@ -44,6 +50,9 @@ void Map::draw(sf::RenderWindow& t_window)
 		}
 	}
 
+	//draws the vector field of the graph 
+	//each line starts at the center of the node and gos to the centre of its target node
+	//from white to blue in colour
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 	{
 		int currentNode = 0;
@@ -59,6 +68,9 @@ void Map::draw(sf::RenderWindow& t_window)
 					sf::Vector2f vector2 = sf::Vector2f(m_mapGraph.nodeIndex(currentNode)->target()->m_data.m_positionX, m_mapGraph.nodeIndex(currentNode)->target()->m_data.m_positionY);
 
 					m_vertexes[0].position = vector1;
+
+
+					m_vertexes[1].color = sf::Color::Blue;
 
 					m_vertexes[1].position = vector2;
 
@@ -135,12 +147,13 @@ void Map::neighbourAlgorithm()
 					int nodeIndex = 0;
 					for (int Xpos = 0; Xpos < ROWS; Xpos++)
 					{
-						//std::cout << "row: " << row << std::endl;
+						
 						for (int Ypos = 0; Ypos < COLS; Ypos++)
 						{
 							if (m_mapGraph.nodeIndex(nodeIndex)->m_data.row == n_row &&
 								m_mapGraph.nodeIndex(nodeIndex)->m_data.col == n_col)
 							{
+								//weight of each arc is the node size
 								m_mapGraph.addArc(CurrentnodeIndex,  nodeIndex , NodeSize);
 							}
 							nodeIndex++;
@@ -206,24 +219,8 @@ void Map::loadSquare()
 	}
 }
 
-
-
-void Map::resetNodes()
-{
-	neighbourAlgorithm();
-}
-
-NodeData Map::getNodeData(int t_index)
-{
-	return m_mapGraph.nodeIndex(t_index)->m_data;
-}
-
-void Map::pathFind(int t_startNode, int t_GoalNode, std::vector<GraphNode<NodeData, int>>& t_path)
-{
-	m_mapGraph.aStar(m_mapGraph.nodeIndex(t_startNode), m_mapGraph.nodeIndex(t_GoalNode), t_path, {});
-}
-
-
+//set the starting node 
+//changes the square colour to green
 void Map::setStart(sf::Vector2f t_pos)
 {
 	int currentNode = 0;
@@ -242,6 +239,11 @@ void Map::setStart(sf::Vector2f t_pos)
 	loadSquare();
 }
 
+//sets the Goal node
+//sets square colour to yellow
+//vector field and pathfinding occurs when ever a goal is set
+//sets any sqaure in the apthtogoal to light blue
+//sets the heatfield of each non path sqaure to a gradiant of red to black from the goal
 void Map::setGoal(sf::Vector2f t_pos)
 {
 
@@ -294,6 +296,8 @@ void Map::setGoal(sf::Vector2f t_pos)
 
 }
 
+//converts a vector position into a number 
+
 int Map::getXY(sf::Vector2f t_pos)
 {
 	auto num = floor(t_pos.x / NODE_WIDTH) + (floor(t_pos.y / NODE_HEIGHT) * 50);
@@ -301,6 +305,7 @@ int Map::getXY(sf::Vector2f t_pos)
 	return num;
 }
 
+//returns the start node
 int Map::getStart()
 {
 
@@ -322,6 +327,7 @@ int Map::getStart()
 	return 0;
 }
 
+//returns the goal node
 int Map::getGoal()
 {
 
@@ -342,6 +348,8 @@ int Map::getGoal()
 	return 0;
 }
 
+//sets a node to impassable
+//changes it colour to grey
 void Map::setImpassable(sf::Vector2f t_pos)
 {
 	if (m_mapGraph.nodeIndex(getXY(t_pos))->m_data.passable == true)
@@ -353,9 +361,13 @@ void Map::setImpassable(sf::Vector2f t_pos)
 		m_mapGraph.nodeIndex(getXY(t_pos))->m_data.passable = true;
 	}
 
+	m_mapGraph.nodeCosts(m_mapGraph.nodeIndex(getGoal()));
+	setVectorField();
 	loadSquare();
 }
 
+//sets up the nodes to have a target node that has a lower path cost 
+//and is closer to the goal if the path cost is the same
 void Map::setVectorField()
 {
 	int currentNode = 0;
@@ -385,9 +397,19 @@ void Map::setVectorField()
 					}
 					else if (m_mapGraph.nodeIndex(currentNode)->target() != nullptr && (*iter).node()->m_data.passable == true)
 					{
-						if ((*iter).node()->m_data.m_hueristic < m_mapGraph.nodeIndex(currentNode)->target()->m_data.m_hueristic)
+						if ((*iter).node()->m_data.m_pathCost < m_mapGraph.nodeIndex(currentNode)->target()->m_data.m_pathCost)
 						{
 							m_mapGraph.nodeIndex(currentNode)->setTarget((*iter).node());
+						}
+						else
+						{
+							if ((*iter).node()->m_data.m_pathCost == m_mapGraph.nodeIndex(currentNode)->target()->m_data.m_pathCost)
+							{
+								if ((*iter).node()->m_data.m_hueristic < m_mapGraph.nodeIndex(currentNode)->target()->m_data.m_hueristic)
+								{
+									m_mapGraph.nodeIndex(currentNode)->setTarget((*iter).node());
+								}
+							}
 						}
 					}
 				}
@@ -397,6 +419,8 @@ void Map::setVectorField()
 	}
 }
 
+//fill pathtogoal variable with the target nodes starting from the start goal
+//if the target node is null breaks out of the loop
 void Map::vectorFieldPathing()
 {
 	auto iter = m_mapGraph.nodeIndex(getStart());

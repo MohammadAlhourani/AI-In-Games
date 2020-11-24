@@ -24,6 +24,8 @@ public:
 	/// </summary>
 	void draw(sf::RenderWindow& t_window);
 
+
+
 	/// <summary>
 	/// Creates the graph nodes and arcs
 	/// </summary>
@@ -33,22 +35,6 @@ public:
 	/// Creates squares on nodes for A* Testing / Checking
 	/// </summary>
 	void loadSquare();
-
-
-	/// <summary>
-	/// Resets the nodes of the graph
-	/// </summary>
-	void resetNodes();
-
-	/// <summary>
-	/// Gets the data at the node of the index
-	/// </summary>
-	NodeData getNodeData(int t_index);
-
-	/// <summary>
-	/// Gets the path from one position to the other
-	/// </summary>
-	void pathFind(int t_startNode, int t_goalNode, std::vector<GraphNode<NodeData, int>>& t_path);
 
 	void setStart(sf::Vector2f t_pos);
 
